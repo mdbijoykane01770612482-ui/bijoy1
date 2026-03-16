@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𓊈𝐁𝐊™⚘ লিডার~বিজয় বস⚘𓊉 - AI BOT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #000; font-family: 'Arial', sans-serif; height: 100vh; overflow: hidden; }
+
+        #floating-panel {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #e94560;
+            border-radius: 0 0 15px 15px;
+            z-index: 1000;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .draggable { cursor: move; border-radius: 15px !important; top: 10px !important; left: 5px !important; width: 95% !important; }
+
+        .controls { position: absolute; right: 10px; top: 5px; z-index: 1001; }
+        .hide-btn { background: #ff0000; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-weight: bold; cursor: pointer; }
+
+        #key-section { display: flex; justify-content: center; gap: 5px; margin-bottom: 8px; margin-top: 5px; }
+        .key-input { background: #111; border: 1px solid #00d2ff; border-radius: 4px; padding: 6px; color: #fff; width: 60%; outline: none; }
+        .unlock-btn { background: #00d2ff; color: #000; border: none; padding: 6px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+        #tg-section { display: none; text-align: center; margin-bottom: 8px; }
+        .join-tg-btn { display: inline-block; background-color: #00d2ff; color: #000; font-weight: bold; font-size: 11px; padding: 5px 20px; text-decoration: none; border-radius: 6px; border: 1.5px solid #00ff00; box-shadow: 0 0 10px #00ff00; }
+
+        #main-content { display: block; }
+        .name-box { border: 1.5px solid #ff0000; border-radius: 20px; padding: 3px; margin: 5px 0; text-align: center; }
+        .name-text { color: #00d2ff; font-size: 13px; font-weight: bold; }
+
+        .box-container { display: flex; justify-content: space-around; gap: 5px; margin-bottom: 8px; }
+        .box { background: #111; border: 1px solid #333; border-radius: 8px; flex: 1; padding: 5px 2px; text-align: center; }
+        .box-title { font-size: 8px; color: #aaa; display: block; }
+        .val-text { font-size: 14px; font-weight: bold; }
+        #percent-display { color: #00ff00; }
+        .num-circle { width: 22px; height: 22px; line-height: 20px; border: 2px solid #00ff00; border-radius: 50%; color: #00ff00; margin: 0 auto; font-size: 12px; font-weight: bold; }
+
+        .timer-wrapper { text-align: center; margin-top: 5px; }
+        .progress-bg { background: #222; height: 4px; border-radius: 10px; overflow: hidden; position: relative; }
+        #progress-bar { height: 100%; width: 100%; background-color: #00ff00; transition: width 0.1s linear; }
+        .timer-label { font-size: 9px; color: #fff; margin-top: 2px; }
+
+        .game-area { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+
+    <div id="floating-panel">
+        <div class="controls">
+            <button class="hide-btn" id="hideBtn" onclick="toggleHide()">–</button>
+        </div>
+
+        <div id="key-section">
+            <input type="password" id="botKey" class="key-input" placeholder="Enter Bot Key">
+            <button class="unlock-btn" onclick="unlockBot()">Unlock</button>
+        </div>
+
+        <div id="tg-section">
+            <a href="https://t.me/+Ghe4Sz1ujotmNDU1" target="_blank" class="join-tg-btn">JOIN TELEGRAM</a>
+        </div>
+
+        <div class="name-box">
+            <span class="name-text">⭐ 𓊈𝐁𝐊™⚘ লিডার~বিজয় বস⚘𓊉⭐</span>
+        </div>
+
+        <div id="main-content">
+            <div class="box-container">
+                <div class="box"><span class="box-title">PERCENT</span><div id="percent-display" class="val-text">--%</div></div>
+                <div class="box"><span class="box-title">PREDICTION</span><div id="prediction-display" class="val-text" style="color:#555">LOCK</div></div>
+                <div class="box"><span class="box-title">NUMBER</span><div id="number-display" class="num-circle">?</div></div>
+            </div>
+            <div class="timer-wrapper">
+                <div class="progress-bg"><div id="progress-bar"></div></div>
+                <div class="timer-label"><span id="seconds">30</span>s Left</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-area">
+        <iframe src="https://tkclub2.com/#/register?invitationCode=15713206105"></iframe>
+    </div>
+
+    <script>
+        const panel = document.getElementById("floating-panel");
+        const mainContent = document.getElementById("main-content");
+        const tgSection = document.getElementById("tg-section");
+        const keySection = document.getElementById("key-section");
+        const progressBar = document.getElementById("progress-bar");
+        const hideBtn = document.getElementById("hideBtn");
+
+        let isUnlocked = false;
+        let isHidden = false;
+
+        function unlockBot() {
+            // পাসকোড পরিবর্তন করে "55" করা হয়েছে
+            if (document.getElementById('botKey').value === "000") {
+                isUnlocked = true;
+                keySection.style.display = 'none';
+                tgSection.style.display = 'block';
+                panel.classList.add('draggable'); 
+                enableDrag(); 
+                updateSignal();
+            } else { alert("Incorrect Key!"); }
+        }
+
+        function toggleHide() {
+            if (!isHidden) {
+                mainContent.style.display = "none";
+                keySection.style.display = "none";
+                tgSection.style.display = "none";
+                panel.style.width = "160px";
+                panel.style.borderRadius = "15px";
+                if(!isUnlocked) panel.style.left = "10px";
+                hideBtn.innerText = "+";
+            } else {
+                mainContent.style.display = "block";
+                if(!isUnlocked) {
+                    keySection.style.display = "flex";
+                    panel.style.width = "100%";
+                    panel.style.left = "0px";
+                    panel.style.borderRadius = "0 0 15px 15px";
+                } else {
+                    tgSection.style.display = "block";
+                    panel.style.width = "95%";
+                    panel.style.borderRadius = "15px";
+                }
+                hideBtn.innerText = "–";
+            }
+            isHidden = !isHidden;
+        }
+
+        function enableDrag() {
+            let isDragging = false;
+            let offset = { x: 0, y: 0 };
+            const move = (e) => {
+                if (isDragging) {
+                    let touch = e.type === "touchmove" ? e.touches[0] : e;
+                    panel.style.left = (touch.clientX - offset.x) + "px";
+                    panel.style.top = (touch.clientY - offset.y) + "px";
+                }
+            };
+            const start = (e) => {
+                if (!isUnlocked) return;
+                isDragging = true;
+                let touch = e.type === "touchstart" ? e.touches[0] : e;
+                offset.x = touch.clientX - panel.offsetLeft;
+                offset.y = touch.clientY - panel.offsetTop;
+            };
+            panel.addEventListener("mousedown", start);
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", () => isDragging = false);
+            panel.addEventListener("touchstart", start);
+            document.addEventListener("touchmove", move);
+            document.addEventListener("touchend", () => isDragging = false);
+        }
+
+        function updateSignal() {
+            if (!isUnlocked) return;
+            document.getElementById('percent-display').innerText = Math.floor(Math.random() * 15 + 84) + "%";
+            const isBig = Math.random() > 0.5;
+            const pred = document.getElementById('prediction-display');
+            const num = document.getElementById('number-display');
+            if (isBig) {
+                pred.innerText = "BIG"; pred.style.color = "#ff3333";
+                num.innerText = [5,6,7,8,9][Math.floor(Math.random()*5)];
+            } else {
+                pred.innerText = "SMALL"; pred.style.color = "#00d2ff";
+                num.innerText = [0,1,2,3,4][Math.floor(Math.random()*5)];
+            }
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            const ms = now.getMilliseconds();
+            const sec = now.getSeconds() % 30;
+            let timeLeft = 30 - sec;
+            let percentage = (((timeLeft * 1000) - ms) / 30000) * 100;
+
+            progressBar.style.width = percentage + "%";
+            let hue = (percentage / 100) * 120; 
+            progressBar.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+
+            document.getElementById('seconds').innerText = timeLeft;
+            if (sec === 0 && ms < 100) updateSignal();
+        }, 50);
+
+    </script>
+</body>
+  </html>
